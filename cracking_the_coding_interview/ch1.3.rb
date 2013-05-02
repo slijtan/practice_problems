@@ -19,28 +19,3 @@ def is_perm?(str1, str2)
 
   true
 end
-
-str1 = "asfd"
-str2 = "asdfa"
-p is_perm?(str1, str2)
-p "str1 and 2 #{str1}, #{str2}"
-
-str1 = "xfd"
-p is_perm?(str1, str2)
-p "str1 and 2 #{str1}, #{str2}"
-
-str1 = "fdas"
-p is_perm?(str1, str2)
-p "str1 and 2 #{str1}, #{str2}"
-
-str1 = "asdfaa"
-p is_perm?(str1, str2)
-p "str1 and 2 #{str1}, #{str2}"
-
-str1 = "asdfA"
-p is_perm?(str1, str2)
-p "str1 and 2 #{str1}, #{str2}"
-
-str1 = "asdfAa"
-p is_perm?(str1, str2)
-p "str1 and 2 #{str1}, #{str2}"
