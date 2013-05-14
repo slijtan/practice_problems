@@ -29,7 +29,6 @@ function alphabatize_word($word){
 class AnagramSortTest extends UnitTestCase {
 
     function testLogCreatesNewFileOnFirstMessage(){
-        $this->assertTrue(false);
         $this->assertEqual(anagram_sort(array("can", "nac", "asdf", "pappy", "lijen", "acn", "dreams", "nejil")), array("can", "nac", "acn", "asdf", "pappy", "lijen", "nejil", "dreams"));
     }
 
