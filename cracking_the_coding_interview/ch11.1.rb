@@ -2,7 +2,7 @@ class Array
   def merge_sorted_arrays!(b)
     index_a = index_b = 0
     res = Array.new
-    raise Exception "both arguments must be sorted arrays" unless self.is_sorted?  && b.is_sorted?
+    raise Exception "both arguments must be sorted arrays" unless self.is_sorted? && b.is_sorted?
 
     while index_a < self.size || index_b < b.size
       if index_a >= self.size
