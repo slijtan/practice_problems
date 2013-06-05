@@ -6,17 +6,16 @@ class Integer
     res = []
 
     while n > 0
-      m = 2 * factor
+      start = 2 * factor
       jump = 10 * factor
       range = factor
 
-      while m <= self
+      (start..self).step(jump) do |m|
         range.times do |i|
           candidate = m + i
           res << candidate unless res.include?(candidate)
           break if candidate == self
         end
-        m += jump
       end
 
       factor *= 10
