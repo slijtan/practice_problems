@@ -10,28 +10,7 @@ module MadLib
         @story.place_word(word_space, word_replacement)
       end
 
-      return @story.story
-
-      while match_data = story.match(/(\(\((.+?)\)\))/)
-        word_space = match_data[2]
-        start, finish = match_data.offset(1)
-        var_name = nil
-
-        if(word_parts = MadLib::Storyteller.should_store_word?(word_space))
-          var_name, word_space = word_parts
-        end
-
-        unless(user_word = stored_words[word_space])
-          output.puts "Please provide #{word_space}"
-          user_word = input.gets
-        end
-
-        story[start...finish] = user_word
-
-        stored_words[var_name] = user_word if var_name
-      end
-
-      story
+      @story.story
     end
 
     private
