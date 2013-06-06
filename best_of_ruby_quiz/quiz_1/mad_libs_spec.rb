@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) << "/mad_libs.rb")
 
-describe MadLib, "#tell_story" do
+describe MadLib::Storyteller, "#tell_story" do
   before  do
     word_num = 0
     @stdin = double("stdin")
@@ -9,7 +9,7 @@ describe MadLib, "#tell_story" do
   end
 
   context "without reused phrases" do
-    before(:all) { @mad_lib = MadLib.new('I had a ((an adjective)) sandwich for lunch today. It dripped all over my ((a body part)) and ((a noun)).') }
+    before(:all) { @mad_lib = MadLib::Storyteller.new('I had a ((an adjective)) sandwich for lunch today. It dripped all over my ((a body part)) and ((a noun)).') }
 
     it "prompts the user for input on phrases formatted by ((<phrase>)) and replaces it in the string" do
       @stdout.should_receive(:puts).with("Please provide an adjective")
@@ -21,7 +21,7 @@ describe MadLib, "#tell_story" do
   end
 
   context "with reused phrases" do
-    before(:all) { @mad_lib = MadLib.new('Our favorite language is ((gem:a gemstone)). We think ((gem)) is better than ((a gemstone)).') }
+    before(:all) { @mad_lib = MadLib::Storyteller.new('Our favorite language is ((gem:a gemstone)). We think ((gem)) is better than ((a gemstone)).') }
 
     it "prompts the user for input on phrases formatted by ((<var>:<phrase>)) and replaces future occurences of ((<var>)) found in string" do
       @stdout.should_receive(:puts).with("Please provide a gemstone")
