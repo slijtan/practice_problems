@@ -12,14 +12,6 @@ module MadLib
 
       @story.story
     end
-
-    private
-
-    def self.should_store_word?(word)
-      if (match = word.match(/(.+):(.+)/))
-        return [match[1], match[2]]
-      end
-    end
   end
 
   class Story
