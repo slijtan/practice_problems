@@ -33,8 +33,6 @@ class Array
   private
 
   def print_sequence(direction, matrix)
-
-
     case direction
     when DIRECTION_RIGHT
       print matrix.shift.join(" ")
