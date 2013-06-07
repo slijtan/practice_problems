@@ -11,8 +11,7 @@ module LCD
 
       #row 0
       @digits.each do |digit|
-        str = ""
-        str << " "
+        str = " "
         if digit.display_position?(0)
           str << "_" * size
         else
