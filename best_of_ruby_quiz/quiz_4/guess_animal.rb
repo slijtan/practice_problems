@@ -8,17 +8,27 @@ module AnimalQuiz
       @output = output
     end
 
+    def play_loop
+      continue = true
+      while continue
+        learn unless play
+
+        @output.puts "Play again? (y or n)\n"
+        continue = @input.gets.chomp == "y"
+      end
+    end
+
     def play
       @output.puts "Think of an animal...\n"
       @curr_node = @first_node
 
       while !@curr_node.instance_of?(Animal)
         @output.puts @curr_node.ask_question
-        @curr_node = @input.gets == "y" ? @curr_node.yes : @curr_node.no
+        @curr_node = @input.gets.chomp == "y" ? @curr_node.yes : @curr_node.no
       end
 
       @output.puts @curr_node.ask_question
-      if(@input.gets == "y")
+      if(@input.gets.chomp == "y")
         @output.puts "I win. Pretty smart, aren' t I?\n"
         true
       else
@@ -29,13 +39,13 @@ module AnimalQuiz
 
     def learn
       @output.puts "What animal were you thinking of?\n"
-      new_animal = @input.gets
+      new_animal = @input.gets.chomp
 
       @output.puts "Give me a question to distinguish #{new_animal} from #{@curr_node.data}.\n"
-      new_question = @input.gets
+      new_question = @input.gets.chomp
 
       @output.puts "For #{new_animal}, what is the answer to your question? (y or n)\n"
-      new_answer = @input.gets == "y"
+      new_answer = @input.gets.chomp == "y"
 
       @new_animal_node, @new_question_node = @curr_node.fork_node(new_animal, new_question, new_answer)
       @first_node = @new_question_node if(@curr_node == @first_node)
