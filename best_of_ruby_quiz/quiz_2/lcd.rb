@@ -60,10 +60,10 @@ module LCD
 
   class Digit
     FILLMAP = [
-               "1110111".to_i(2),
-               "0100100".to_i(2),
-               "1011101".to_i(2),
-               "1101101".to_i(2)
+               0b1110111,
+               0b0100100,
+               0b1011101,
+               0b1101101
               ]
 
     attr_reader :digit
