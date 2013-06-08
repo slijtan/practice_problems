@@ -4,16 +4,10 @@
 
 class Array
   def all_subsets
-    all_subsets_recursive #<< []
-  end
-
-  protected
-
-  def all_subsets_recursive
     return [[]] if self.size == 0
 
     first, rest = self[0], self[1..-1]
-    rest = rest.all_subsets_recursive
+    rest = rest.all_subsets
     rest + rest.map {|subset| subset.clone.unshift(first) }  #<< [first]
   end
 end
