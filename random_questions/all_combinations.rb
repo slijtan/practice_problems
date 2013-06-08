@@ -8,7 +8,7 @@ class Array
 
     first, rest = self[0], self[1..-1]
     rest = rest.all_subsets
-    rest + rest.map {|subset| subset.clone.unshift(first) }  #<< [first]
+    rest + rest.map {|subset| subset.clone.unshift(first) }
   end
 end
 
