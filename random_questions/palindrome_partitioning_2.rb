@@ -5,10 +5,13 @@
 
 
 class String
+  @@palindrome_cuts_cache = {}
+
   def palindrome_cuts
     return 0 if is_palindrome?
+    return @@palindrome_cuts_cache[self] if @@palindrome_cuts_cache[self]
 
-    (1..(length - 1)).to_a.map do |i|
+    @@palindrome_cuts_cache[self] = (1..(length - 1)).to_a.map do |i|
       left = self[0...i]
       right = self[i..-1]
       1 + left.palindrome_cuts + right.palindrome_cuts
