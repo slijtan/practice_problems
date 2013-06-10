@@ -10,7 +10,7 @@ class Dictionary
     @dictionary.each do |word|
       next unless word.length == 7
 
-      key = word.sort
+      key = word.split('').sort.join
       0.upto(key.length-1) do |i|
         sub_hash = key[0...i] + key[(i+1)..(key.length-1)]
 
@@ -24,14 +24,4 @@ class Dictionary
     solution_set
   end
 
-end
-
-class String
-  include Enumerable
-
-  alias_method :each, :each_char
-
-  def sort
-    super.join
-  end
 end
