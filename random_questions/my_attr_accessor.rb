@@ -4,7 +4,7 @@ class Object
       define_method(name) { instance_variable_get("@#{name}") }
       define_method("#{name}=") {|arg| instance_variable_set("@#{name}",arg)}
 
-      class << self ; self end.class_eval do
+      class << self ; self ; end.class_eval do
         define_method(name) {"UNIVERSALLY HUGE #{name}"}
       end
     end
