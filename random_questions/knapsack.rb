@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 #google for 0/1 knapsack problem to find problem
+#TODO: memoize this to make it perform better. Right now its exponential, which is bad...
 
 class KnapObj
   attr_reader :w, :v
