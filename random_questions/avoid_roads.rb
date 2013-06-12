@@ -65,21 +65,17 @@ class AvoidRoads
       dp[node.x] ||= []
       paths_from_left = node.has_left? ? dp[node.x-1][node.y] : 0
       paths_from_bottom = node.has_bottom? ? dp[node.x][node.y-1] : 0
-      dp[node.x][node.y] = [paths_from_left + paths_from_bottom, 1].max #only time it should be 1 is on the first run
+      dp[node.x][node.y] = node.x == 0 && node.y == 0 ? 1 : paths_from_left + paths_from_bottom #special case for root node
 
       if node.x+1 <= @w
         right_node = nodes["#{node.x+1},#{node.y}"]
-        unless right_node.blocked_from_left
-          right_node.visited_from_left = true
-          ready_nodes << right_node if right_node.visited_from_all_possible_sides?
-        end
+        right_node.visited_from_left = true unless right_node.blocked_from_left
+        ready_nodes << right_node if right_node.visited_from_all_possible_sides?
       end
       if node.y+1 <= @h
         top_node = nodes["#{node.x},#{node.y+1}"]
-        unless top_node.blocked_from_bottom
-          top_node.visited_from_bottom = true
-          ready_nodes << top_node if top_node.visited_from_all_possible_sides?
-        end
+        top_node.visited_from_bottom = true unless top_node.blocked_from_bottom
+        ready_nodes << top_node if top_node.visited_from_all_possible_sides?
       end
     end
 
