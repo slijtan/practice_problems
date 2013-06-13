@@ -16,6 +16,7 @@ The result of your calculation might be huge, so for convenience we would only l
 class String
   @@store = {}
 
+  #recursive with memoization
   def count_substrings_rec(needle)
     return 1 if needle == ""
 
@@ -34,5 +35,28 @@ class String
 
     @@store[key] = count
     count
+  end
+
+  #DP
+  def count_substrings(needle)
+    #load lookups
+    letter_positions = Hash.new {|h,k| h[k] = []}
+    counts = [0] * needle.length
+
+    0.upto(needle.length - 1) do |i|
+      letter_positions[needle[i]] << i
+    end
+
+    each_char do |char|
+      letter_positions[char].each do |position|
+        if position == 0
+          counts[position] += 1
+        else
+          counts[position] += counts[position-1]
+        end
+      end
+    end
+
+    counts.last
   end
 end
