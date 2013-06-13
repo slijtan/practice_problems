@@ -1,7 +1,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), 'milkshakes.rb'))
 
 describe MilkshakeShop do
-=begin
+
   it "solves googles first example" do
     shop = MilkshakeShop.new(5)
     customers = []
@@ -20,7 +20,7 @@ describe MilkshakeShop do
 
     shop.make_milkshakes(customers).should be_false
   end
-=end
+
 
   it "solves googles third example" do
     shop = MilkshakeShop.new(1)
@@ -30,5 +30,15 @@ describe MilkshakeShop do
     customers << MilkshakeShop::Customer.new([[1, 1]])
 
     shop.make_milkshakes(customers).should == [1]
+  end
+
+
+  it "solves googles 4th case" do
+    shop = MilkshakeShop.new(2)
+    customers = []
+    customers << MilkshakeShop::Customer.new([[1, 0],[2, 1]])
+    customers << MilkshakeShop::Customer.new([[1, 0],[2, 0]])
+
+    shop.make_milkshakes(customers).should == [0,0]
   end
 end

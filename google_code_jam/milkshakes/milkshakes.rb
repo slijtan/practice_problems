@@ -38,8 +38,6 @@ class MilkshakeShop
   def make_milkshakes_rec(customers, flavors_used = [])
     return flavors_used if customers.empty?
 
-#    p "---FUNCT with #{customers.size} and #{flavors_used}"
-
     if @memoize
       key = customers.map{|c|c.id}.join("_") << flavors_used.join("_")
       return @memoize[key] if @memoize[key]
@@ -47,8 +45,14 @@ class MilkshakeShop
 
     customer = customers.shift
 
+#    p "---FUNCT with #{customers.size} and #{flavors_used} and #{customer.preferences}"
+    if customer.is_already_satisfied?(flavors_used)
+      return make_milkshakes_rec(customers.clone, flavors_used)
+    end
+
     possible_flavors_used = []
     customer.preferences.each do |preference|
+
       if can_make_milkshake?(preference, flavors_used) &&
           updated_flavors_used = make_milkshakes_rec(customers.clone, use_flavor(preference, flavors_used))
 
@@ -60,6 +64,7 @@ class MilkshakeShop
     if possible_flavors_used.empty?
       false
     else
+      p "#{possible_flavors_used} for #{customers.size}"
       best = most_efficient(possible_flavors_used)
       @memoize[key] = best if @memoize
       best
@@ -83,7 +88,8 @@ class MilkshakeShop
     min_sum = @num_flavors + 1
     min_ele = nil
     possible_flavors_used.each do |flavors_used|
-      min_ele = flavors_used if flavors_used.inject(0){|sum, num| sum + (num.nil? ? 0 : num) } < min_sum
+      sum = flavors_used.inject(0){|sum, num| sum + (num.nil? ? 0 : num) }
+      min_ele, min_sum = flavors_used, sum if sum < min_sum
     end
 
     min_ele
@@ -97,5 +103,15 @@ class MilkshakeShop
       @preferences = preferences
       @id = @@id += 1
     end
+
+    def is_already_satisfied?(flavors_used)
+      for preference in @preferences
+        flavor, malted = preference[0]-1, preference[1]
+        return true if flavors_used[flavor] == malted
+      end
+
+      false
+    end
+
   end
 end
