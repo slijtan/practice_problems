@@ -26,12 +26,19 @@ class MilkshakeShop
 
   def make_milkshakes(customers)
     if res = make_milkshakes_rec(customers)
-      res.map{|ele| ele.nil? ? 0 : ele}
+      ret = []
+      @num_flavors.times do |i|
+        ret << (res[i].nil? ? 0 : res[i])
+      end
+
+      ret
     end
   end
 
   def make_milkshakes_rec(customers, flavors_used = [])
     return flavors_used if customers.empty?
+
+#    p "---FUNCT with #{customers.size} and #{flavors_used}"
 
     if @memoize
       key = customers.map{|c|c.id}.join("_") << flavors_used.join("_")
@@ -43,9 +50,10 @@ class MilkshakeShop
     possible_flavors_used = []
     customer.preferences.each do |preference|
       if can_make_milkshake?(preference, flavors_used) &&
-          flavors_used = make_milkshakes_rec(customers.clone, use_flavor(preference, flavors_used))
+          updated_flavors_used = make_milkshakes_rec(customers.clone, use_flavor(preference, flavors_used))
 
-        possible_flavors_used << flavors_used
+#        p "passed the test, adding to possible flavors_used #{updated_flavors_used}"
+        possible_flavors_used << updated_flavors_used
       end
     end
 
@@ -59,14 +67,15 @@ class MilkshakeShop
   end
 
   def can_make_milkshake?(preference, flavors_used)
-    flavors_used[preference[0]-1].nil?
+    flavor, malted = preference[0]-1, preference[1]
+    flavors_used[flavor].nil? || flavors_used[flavor] == malted #its unused, or its already to customers liking
   end
 
   def use_flavor(preference, flavors_used)
-    flavor, malted = preference[0], preference[1]
+    flavor, malted = preference[0] - 1, preference[1]
 
     clone = flavors_used.clone
-    clone[flavor-1] = malted
+    clone[flavor] = malted
     clone
   end
 
@@ -74,7 +83,7 @@ class MilkshakeShop
     min_sum = @num_flavors + 1
     min_ele = nil
     possible_flavors_used.each do |flavors_used|
-      min_ele = flavors_used if flavors_used.inject{|sum, num| sum + (num.nil? ? 0 : num) } < min_sum
+      min_ele = flavors_used if flavors_used.inject(0){|sum, num| sum + (num.nil? ? 0 : num) } < min_sum
     end
 
     min_ele
