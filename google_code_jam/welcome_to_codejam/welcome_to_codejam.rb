@@ -14,8 +14,13 @@ The result of your calculation might be huge, so for convenience we would only l
 =end
 
 class String
+  @@store = {}
+
   def count_substrings_rec(needle)
     return 1 if needle == ""
+
+    key = "#{self}_#{needle}"
+    return @@store[key] if @@store[key]
 
     first_letter = needle[0]
     rest_of_needle = needle[1..-1]
@@ -27,6 +32,7 @@ class String
       count += substr.count_substrings_rec(rest_of_needle)
     end
 
+    @@store[key] = count
     count
   end
 end

@@ -9,7 +9,7 @@ output = ARGV[1]
 def last_four(num)
   str = num.to_s
   if str.length > 4
-    str[-5..-1]
+    str[-4..-1]
   else
     while str.length < 4
       str = "0#{str}"
