@@ -33,7 +33,7 @@ def next_palindrome(num)
 
     new_left = (left.to_i + 1).to_s
     new_right = new_left.split('').reverse.join
-    new_left = new_left[0..-2] if left == "9"
+    new_left = new_left[0..-2]     if left == "9"*left.length
     new_right = new_right[1..-1] if is_odd
     (new_left + new_right).to_i
   end
@@ -46,8 +46,8 @@ def initialize_palindrome(num)
   end
 end
 
-i = 0
-while i < 200
+i = 989
+while i < 1000
   i = next_palindrome(i)
 #  p i
 end
@@ -59,8 +59,7 @@ File.open(output, 'w') do |fout|
 
     1.upto(test_cases) do |c|
       min, max = f.gets.chomp.split(" ").map(&:to_i)
-#      next unless c == 8
-      p "---TEST CASE #{c} #{min} #{max}"
+#      p "---TEST CASE #{c} #{min} #{max}"
 
       num = initialize_palindrome(Math.sqrt(min).ceil)
 #      p num
@@ -74,7 +73,6 @@ File.open(output, 'w') do |fout|
 
       fout.puts "Case ##{c}: #{count}"
       p "Case ##{c}: #{count}"
-
     end
   end
 end
