@@ -7,20 +7,20 @@ def is_palindrome?(num)
   return true if num < 10
 
   num = num.to_s
-#  return $palindromes[num] unless $palindromes[num].nil?
+  return $palindromes[num] unless $palindromes[num].nil?
 
   (0..(num.length/2-1)).each do |i|
 #    p "comparing #{num[i]} to #{num[num.length-1-i]}"
     unless num[i] == num[num.length-1-i]
       $palindromes[num] = false
-#      return $palindromes[num]
-      return false
+      return $palindromes[num]
+#      return false
     end
   end
 
   $palindromes[num] = true
-#  return $palindromes[num]
-  return true
+  return $palindromes[num]
+#  return true
 end
 
 def next_palindrome(num)
@@ -63,11 +63,11 @@ File.open(output, 'w') do |fout|
       p "---TEST CASE #{c} #{min} #{max}"
 
       num = initialize_palindrome(Math.sqrt(min).ceil)
-      p num
+#      p num
 
       count = 0
       while num*num <= max
-        p "trying #{num}"
+#        p "trying #{num}"
         count += 1 if is_palindrome?(num*num)
         num = next_palindrome(num)
       end
